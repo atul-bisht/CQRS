@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace CQRS.Application.Framework.Aggregate
 {
-    class AggregateRoot : IAggregateRoot
+    /// <summary>
+    /// used to handle command and gererate events
+    /// </summary>
+    public abstract class AggregateRoot : IAggregateRoot
     {
         public Guid Id { get; protected set; }
         public int Version { get; protected set; } = -1;
@@ -23,12 +26,7 @@ namespace CQRS.Application.Framework.Aggregate
         protected void Register<T>(Action<T> action)
         {
             _eventHandler.Add(typeof(T), x => action((T)x));
-
-
-
         }
-        
-
 
         public void ClearEvents()
         {
@@ -42,7 +40,8 @@ namespace CQRS.Application.Framework.Aggregate
 
         public void Raise(object e)
         {
-
+            _eventHandler[e.GetType()](e);
+            _events.Add(e);
         }
     }
 }

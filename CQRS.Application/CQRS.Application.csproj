@@ -46,8 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregate\PayeeEncounter.cs" />
     <Compile Include="CommandHandler\AddPayeeCommandHandler.cs" />
     <Compile Include="Command\AddPayee.cs" />
+    <Compile Include="Events\PayeeAdded.cs" />
+    <Compile Include="Events\PayeeEdited.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AggregateRepository.cs" />
     <Compile Include="Repository\PayeeRepository.cs" />
