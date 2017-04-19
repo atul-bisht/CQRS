@@ -14,20 +14,30 @@ namespace CQRS.Application.Aggregate
     /// </summary>
     class PayeeEncounter : AggregateRoot
     {
-        bool HasDeleted, HasChanged;
+        bool HasDeleted, HasChanged, HasAdded;
         string PayeeName, Account, BSB, Description;
+        DateTime TimeStamp;
 
 
-        public PayeeEncounter(string name, string accountId, string bsb, string description)
+        public PayeeEncounter(string name, string accountId, string bsb, string description, string Id)
             : this()
         {
-            Raise(new PayeeAdded(name, bsb, accountId, description));
+            Raise(new PayeeAdded(name, bsb, accountId, description, Id));
         }
 
         public PayeeEncounter()
         {
             Register<PayeeAdded>(When);
             Register<PayeeEdited>(When);
+            Register<PayeeDeleted>(When);
+        }
+
+        public void When(PayeeDeleted payee)
+        {
+            HasDeleted = true;
+            HasAdded = false;
+            Id = new Guid(payee.Id);
+            TimeStamp = DateTime.UtcNow;
         }
 
         public void When(PayeeAdded payee)
@@ -36,6 +46,9 @@ namespace CQRS.Application.Aggregate
             Account = payee.AccountNumber;
             BSB = payee.BSB;
             Description = payee.Description;
+            Id = new Guid(payee.Id);
+            TimeStamp = DateTime.UtcNow;
+            HasAdded = true;
         }
 
         public void When(PayeeEdited payee)
@@ -44,6 +57,32 @@ namespace CQRS.Application.Aggregate
             PayeeName = payee.PayeeName;
             Account = payee.AccountNumber;
             BSB = payee.BSB;
+            Id = new Guid(payee.Id);
+            TimeStamp = DateTime.UtcNow;
+        }
+
+        public void EditPayee(string id, string account, string bsb, string name)
+        {
+            if (this.HasAdded & !this.HasDeleted)
+            {
+                Raise(new PayeeEdited(id, account, bsb, name));
+            }
+            else
+            {
+                throw new NotSupportedException("This Event isn't applicable on current payee aggregate.");
+            }
+        }
+
+        public void DeletePayee(string id)
+        {
+            if (this.HasAdded & !this.HasDeleted)
+            {
+                Raise(new PayeeDeleted(id));
+            }
+            else
+            {
+                throw new NotSupportedException("This Event isn't applicable on current payee aggregate.");
+            }
         }
     }
 }

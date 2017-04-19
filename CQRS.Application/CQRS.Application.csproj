@@ -50,6 +50,7 @@
     <Compile Include="CommandHandler\AddPayeeCommandHandler.cs" />
     <Compile Include="Command\AddPayee.cs" />
     <Compile Include="Events\PayeeAdded.cs" />
+    <Compile Include="Events\PayeeDeleted.cs" />
     <Compile Include="Events\PayeeEdited.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AggregateRepository.cs" />
@@ -63,6 +64,10 @@
       <Project>{1e257c3a-7fa4-4bf1-ba3b-777c2c915836}</Project>
       <Name>CQRS.Application.Framework</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\2.dbo.EventAggregateTable.sql" />
+    <Content Include="Scripts\1.dbo.EventLogTable.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

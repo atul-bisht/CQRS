@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace CQRS.Application.Repository
 {
-    class AggregateRepository
+    public class AggregateRepository
     {
+        public AggregateRepository()
+        {
+
+        }
     }
 }

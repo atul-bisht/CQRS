@@ -12,13 +12,15 @@ namespace CQRS.Application.Events
         public string BSB { get; }
         public string AccountNumber { get; }
         public string Description { get; }
+        public string Id { get; set; }
 
-        public PayeeAdded(string name, string bsb, string accountNumber, string description)
+        public PayeeAdded(string name, string bsb, string accountNumber, string description, string id)
         {
             PayeeName = name;
             BSB = bsb;
             AccountNumber = accountNumber;
             Description = description;
+            Id = id;
         }
     }
 }
