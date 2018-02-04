@@ -3,8 +3,8 @@ create database eventStore
 
 CREATE TABLE [dbo].[EventLog]
 (
-	[Id] INT NOT NULL PRIMARY KEY, 
-    [AggregateId] NVARCHAR(50) NOT NULL, 
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [AggregateId] UNIQUEIDENTIFIER NOT NULL, 
     [TimeStamp] DATETIME NOT NULL, 
     [PayLoad] NCHAR(10) NOT NULL ,
 	[EventName] NCHAR(10) NOT NULL, 

@@ -8,7 +8,7 @@ namespace CQRS.Application.Framework.CommandHandler
 {
     public abstract class CommandHandlerBase : ICommandHandler
     {
-        Dictionary<string, Func<object, Task>> handlers { get; } = new Dictionary<string, Func<object, Task>>();
+        public Dictionary<string, Func<object, Task>> handlers { get; } = new Dictionary<string, Func<object, Task>>();
 
         public void Register<T>(Func<T, Task> handler)
         {

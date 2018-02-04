@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CQRS.Application.Framework.Aggregate
 {
-    interface IAggregateRoot
+    public interface IAggregateRoot
     {
         List<Object> GetEvents();
 

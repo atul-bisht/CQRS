@@ -53,6 +53,16 @@
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CQRS.Application.Framework\CQRS.Application.Framework.csproj">
+      <Project>{1e257c3a-7fa4-4bf1-ba3b-777c2c915836}</Project>
+      <Name>CQRS.Application.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CQRS.Application\CQRS.Application.csproj">
+      <Project>{2b137a36-aa3e-46b0-8b1f-143ea9796e15}</Project>
+      <Name>CQRS.Application</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

@@ -15,14 +15,15 @@ namespace CQRS.Application.Aggregate
     class PayeeEncounter : AggregateRoot
     {
         bool HasDeleted, HasChanged, HasAdded;
-        string PayeeName, Account, BSB, Description;
+        string PayeeName, Account, BSB, Description, payeeId;
         DateTime TimeStamp;
 
 
-        public PayeeEncounter(string name, string accountId, string bsb, string description, string Id)
+
+        public PayeeEncounter(string name, string accountId, string bsb, string description)
             : this()
         {
-            Raise(new PayeeAdded(name, bsb, accountId, description, Id));
+            Raise(new PayeeAdded(name, bsb, accountId, description));
         }
 
         public PayeeEncounter()
@@ -36,7 +37,7 @@ namespace CQRS.Application.Aggregate
         {
             HasDeleted = true;
             HasAdded = false;
-            Id = new Guid(payee.Id);
+            payeeId = payee.Id;
             TimeStamp = DateTime.UtcNow;
         }
 
@@ -46,7 +47,6 @@ namespace CQRS.Application.Aggregate
             Account = payee.AccountNumber;
             BSB = payee.BSB;
             Description = payee.Description;
-            Id = new Guid(payee.Id);
             TimeStamp = DateTime.UtcNow;
             HasAdded = true;
         }
@@ -57,7 +57,7 @@ namespace CQRS.Application.Aggregate
             PayeeName = payee.PayeeName;
             Account = payee.AccountNumber;
             BSB = payee.BSB;
-            Id = new Guid(payee.Id);
+            payeeId = payee.Id;
             TimeStamp = DateTime.UtcNow;
         }
 
